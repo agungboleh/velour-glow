@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "cp -r node_modules/deepar public/deepar-resources"
   },
   "dependencies": {
+    "@deepar/beauty": "^1.1.0-beta",
+    "deepar": "^5.6.22",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
