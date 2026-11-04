@@ -1,11 +1,18 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { RiCameraLensFill } from "react-icons/ri";
+import { RiCameraLensFill, RiVideoOnLine } from "react-icons/ri";
 import ShadeToneCard from "../ui/card/ShadeToneCard";
 import SimulasiCahayaCard from "../ui/card/SimulasiCahayaCard";
 import FinishingSelector from "../ui/card/FinishingSelector";
 import TryOnSummaryCard from "../ui/card/TryOnSummaryCard";
 import VirtualTryOnDisplay from "../ui/card/VirtualTryOnDisplay";
+import { ButtonIconLeft } from "../ui/button/buttons";
+import dynamic from "next/dynamic";
+
+const VirtualTryOnModal = dynamic(
+  () => import("../ui/modal/VirtualTryOnModal"),
+  { ssr: false },
+);
 
 const MODEL_SRC = "/assets/model.webp";
 const ShadeData = [
@@ -54,6 +61,9 @@ const ShadeData = [
 ];
 
 export default function VirtualTryOnSection() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTryOnOpen, setIsTryOnOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
   const [selectedFinish, setSelectedFinish] = useState("Jelly Gloss");
   const [selectedShadeId, setSelectedShadeId] = useState("#02");
   const [selectedShadeName, setSelectedShadeName] = useState("Berry Splash");
@@ -123,7 +133,6 @@ export default function VirtualTryOnSection() {
         </div>
         <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-[0_20px_40px_-10px_rgba(255,45,120,0.12)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Kolom Kiri: Display Try-On & Simulasi Cahaya */}
             <div className="lg:col-span-7 flex flex-col">
               <VirtualTryOnDisplay
                 containerRef={containerRef}
@@ -176,11 +185,25 @@ export default function VirtualTryOnSection() {
                   currentShade={currentShade}
                   selectedFinish={selectedFinish}
                 />
+                <ButtonIconLeft
+                  onClick={() => {
+                    closeMenu();
+                    setIsTryOnOpen(true);
+                  }}
+                  label="Coba di Wajahmu (Virtual Try-On) ✨"
+                  icon={RiVideoOnLine}
+                  className="cursor-pointer inline-flex items-center justify-center rounded-full bg-primary-700 px-8 py-4 text-sm font-bold text-white shadow-[0_10px_24px_-4px_rgba(255,45,120,0.3)] transition-transform active:scale-95 hover:bg-primary-400"
+                  size="text-xl"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <VirtualTryOnModal
+        isOpen={isTryOnOpen}
+        onClose={() => setIsTryOnOpen(false)}
+      />
     </section>
   );
 }
