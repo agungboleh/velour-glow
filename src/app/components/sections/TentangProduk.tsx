@@ -5,8 +5,19 @@ import {
   RiSparklingFill,
 } from "react-icons/ri";
 import { ButtonIconLeft, ButtonIconRight } from "../ui/button/buttons";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const VirtualTryOnModal = dynamic(
+  () => import("../ui/modal/VirtualTryOnModal"),
+  { ssr: false },
+);
 
 export default function TentangProdukSection() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTryOnOpen, setIsTryOnOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <section
       id="tentang-produk"
@@ -37,7 +48,10 @@ export default function TentangProdukSection() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <ButtonIconLeft
-              href="#coba-virtual-try-on"
+              onClick={() => {
+                closeMenu();
+                setIsTryOnOpen(true);
+              }}
               label="Coba di Wajahmu (Virtual Try-On) ✨"
               icon={RiVideoOnLine}
               className="cursor-pointer inline-flex items-center rounded-full bg-primary-700 px-8 py-4 text-sm font-bold text-white shadow-[0_10px_24px_-4px_rgba(255,45,120,0.3)] transition-transform active:scale-95 hover:bg-primary-400"
@@ -77,6 +91,10 @@ export default function TentangProdukSection() {
           </div>
         </div>
       </div>
+      <VirtualTryOnModal
+        isOpen={isTryOnOpen}
+        onClose={() => setIsTryOnOpen(false)}
+      />
     </section>
   );
 }
