@@ -37,14 +37,14 @@ export default function TentangProdukSection() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <ButtonIconLeft
-              href="#try-on-section"
+              href="#coba-virtual-try-on"
               label="Coba di Wajahmu (Virtual Try-On) ✨"
               icon={RiVideoOnLine}
               className="cursor-pointer inline-flex items-center rounded-full bg-primary-700 px-8 py-4 text-sm font-bold text-white shadow-[0_10px_24px_-4px_rgba(255,45,120,0.3)] transition-transform active:scale-95 hover:bg-primary-400"
               size="text-xl"
             />
             <ButtonIconRight
-              href="#formula-section"
+              href="#formula-bahan"
               label="Jelajahi Formula & Bahan"
               icon={RiArrowDownLine}
               className="cursor-pointer inline-flex items-center rounded-full bg-white text-primary px-6 py-4 text-sm font-bold shadow-sm transition-transform active:scale-95 hover:bg-gray-200"
